@@ -10,7 +10,7 @@ import (
 	qr "rsc.io/qr"
 )
 
-type BtcQrRequestParam struct {
+type GenerateBtcQRParam struct {
 	Address string `json:"address" form:"address" query:"address" validate:"required,btcaddress"`
 	Amount  string `json:"amount" form:"amount" query:"amount" validate:"required,btcdecimallength"`
 	Label   string `json:"label" form:"label" query:"label" validate:"max=255"`
@@ -19,7 +19,7 @@ type BtcQrRequestParam struct {
 
 func GenerateBtcQR(c echo.Context) error {
 
-	p := new(BtcQrRequestParam)
+	p := new(GenerateBtcQRParam)
 
 	if err := c.Bind(p); err != nil {
 		return c.String(http.StatusBadRequest, "Request is failed: "+err.Error())

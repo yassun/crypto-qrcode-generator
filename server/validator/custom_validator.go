@@ -10,8 +10,18 @@ type CustomValidator struct {
 }
 
 func (cv *CustomValidator) Validate(i interface{}) error {
-	cv.validator.RegisterValidation("btcdecimallength", BtcDecimalLengthValidate)
-	cv.validator.RegisterValidation("btcaddress", BtcAddressValidate)
+
+	cv.validator.RegisterValidation("btcdecimallength", func(fl validator.FieldLevel) bool {
+		return BtcDecimalLengthValidate(fl.Field().String())
+	})
+
+	cv.validator.RegisterValidation("btcaddress", func(fl validator.FieldLevel) bool {
+		address := fl.Field().String()
+		if CheckBtcBase58Address(address) || CheckBech32AddressValidate(address) {
+			return true
+		}
+		return false
+	})
 	return cv.validator.Struct(i)
 }
 
