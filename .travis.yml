@@ -1,0 +1,30 @@
+language: go
+sudo: false
+go:
+  - 1.12
+  - tip
+
+matrix:
+  allow_failures:
+    - go: tip
+
+env:
+  GO111MODULE: on go mod download
+  SERVER_SRC_DIR: "$TRAVIS_BUILD_DIR/server"
+
+install:
+  - go get -u golang.org/x/lint/golint
+  - cd $SERVER_SRC_DIR
+  - go mod download
+  - cd $TRAVIS_BUILD_DIR
+
+script:
+  - cd $SERVER_SRC_DIR
+  - go vet ./...
+  - diff <(golint ./...) <(printf "")
+  - go test ./...
+  - cd $TRAVIS_BUILD_DIR
+
+after_script:
+
+
