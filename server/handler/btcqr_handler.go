@@ -49,7 +49,7 @@ func GenerateBtcQR(c echo.Context) error {
 
 	qrCode, err := qr.Encode(uri, qr.M)
 	if err != nil {
-		return c.String(http.StatusBadRequest, "QR Encode is failed: "+err.Error())
+		return c.String(http.StatusBadRequest, "QR Encoding is failed: "+err.Error())
 	}
 
 	b64 := base64.StdEncoding.EncodeToString(qrCode.PNG())
@@ -58,7 +58,7 @@ func GenerateBtcQR(c echo.Context) error {
 		http.StatusOK,
 		struct {
 			StatusCode int    `json:"status code"`
-			QRCode     string `json:"QR"`
+			QRCode     string `json:"qr"`
 		}{
 			StatusCode: http.StatusOK,
 			QRCode:     b64,

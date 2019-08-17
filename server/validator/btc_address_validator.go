@@ -41,6 +41,7 @@ func CheckBtcBase58Address(address string) bool {
 		address[:1] == P2PKHTestPreffix1 ||
 		address[:1] == P2PKHTestPreffix2 ||
 		address[:1] == P2SHTestPreffix {
+
 		encoding := base58.BitcoinEncoding
 		if _, err := encoding.Decode([]byte(address)); err == nil {
 			return true
