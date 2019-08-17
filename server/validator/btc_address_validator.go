@@ -6,10 +6,13 @@ import (
 	base58 "github.com/itchyny/base58-go"
 )
 
-// https://en.bitcoin.it/wiki/List_of_address_prefixes
+// Bech32MainHrp mainnnet Leading symbol
 const Bech32MainHrp = "bc1"
+
+// Bech32TestHrp testnet Leading symbol
 const Bech32TestHrp = "tb1"
 
+// CheckBech32AddressValidate validate beh32 address
 func CheckBech32AddressValidate(address string) bool {
 	if len(address) < 3 {
 		return false
@@ -23,14 +26,22 @@ func CheckBech32AddressValidate(address string) bool {
 	return false
 }
 
-// Base58
-// https://en.bitcoin.it/wiki/List_of_address_prefixes
+// P2PKHMainPreffix mainnet Leading symbol
 const P2PKHMainPreffix = "1"
+
+// P2SHMainPreffix mainnet Leading symbol
 const P2SHMainPreffix = "3"
+
+// P2PKHTestPreffix1 testnet Leading symbol
 const P2PKHTestPreffix1 = "m"
+
+// P2PKHTestPreffix2 testnet Leading symbol
 const P2PKHTestPreffix2 = "n"
+
+// P2SHTestPreffix testnet Leading symbol
 const P2SHTestPreffix = "2"
 
+// CheckBtcBase58Address validate beh32 address
 func CheckBtcBase58Address(address string) bool {
 	if len(address) < 1 {
 		return false

@@ -10,16 +10,17 @@ import (
 	qr "rsc.io/qr"
 )
 
-type GenerateBtcQRParam struct {
+type generateBtcQRParam struct {
 	Address string `json:"address" form:"address" query:"address" validate:"required,btcaddress"`
 	Amount  string `json:"amount" form:"amount" query:"amount" validate:"required,btcdecimallength"`
 	Label   string `json:"label" form:"label" query:"label" validate:"max=255"`
 	Message string `json:"message" form:"message" query:"message" validate:"max=255"`
 }
 
+// GenerateBtcQR is Generate QR code based on generateBtcQRParam
 func GenerateBtcQR(c echo.Context) error {
 
-	p := new(GenerateBtcQRParam)
+	p := new(generateBtcQRParam)
 
 	if err := c.Bind(p); err != nil {
 		return c.String(http.StatusBadRequest, "Request is failed: "+err.Error())

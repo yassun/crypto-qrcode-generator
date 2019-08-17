@@ -5,11 +5,11 @@ import (
 	validator "gopkg.in/go-playground/validator.v9"
 )
 
-type CustomValidator struct {
+type customValidator struct {
 	validator *validator.Validate
 }
 
-func (cv *CustomValidator) Validate(i interface{}) error {
+func (cv *customValidator) Validate(i interface{}) error {
 
 	cv.validator.RegisterValidation("btcdecimallength", func(fl validator.FieldLevel) bool {
 		return BtcDecimalLengthValidate(fl.Field().String())
@@ -25,6 +25,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
 }
 
+// NewCustomValidator creates validator
 func NewCustomValidator() echo.Validator {
-	return &CustomValidator{validator: validator.New()}
+	return &customValidator{validator: validator.New()}
 }

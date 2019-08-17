@@ -12,12 +12,12 @@ import (
 )
 
 func TestGenerateBtcQR(t *testing.T) {
-	type btcQrJsonTest struct {
+	type btcQrJSONTest struct {
 		given string
 		exp   int
 	}
 
-	btcQrJsonTests := []btcQrJsonTest{
+	btcQrJSONTests := []btcQrJSONTest{
 		{
 			`{"address":"175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W","amount":"0.1"}`,
 			http.StatusOK,
@@ -43,7 +43,7 @@ func TestGenerateBtcQR(t *testing.T) {
 	e := echo.New()
 	e.Validator = validator.NewCustomValidator()
 
-	for _, tt := range btcQrJsonTests {
+	for _, tt := range btcQrJSONTests {
 		t.Run("", func(t *testing.T) {
 			req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(tt.given))
 			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
