@@ -11,5 +11,5 @@ func main() {
 	e := echo.New()
 	e.Validator = validator.NewCustomValidator()
 	e.POST("/generate-qr/btc", handler.GenerateBtcQR)
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":8000"))
 }

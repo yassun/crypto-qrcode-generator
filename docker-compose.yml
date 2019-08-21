@@ -6,5 +6,10 @@ services:
     volumes:
       - ./server:/api
     ports:
+      - 8000:8000
+  web:
+    build: ./web
+    volumes:
+      - ./web:/app
+    ports:
       - 8080:8080
-
