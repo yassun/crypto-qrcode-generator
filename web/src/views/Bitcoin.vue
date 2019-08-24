@@ -6,7 +6,7 @@
 
         <v-row align="center" justify="center">
           <v-img
-            src="https://placehold.jp/175x175.png"
+            :src="qrcodeImage"
             aspect-ratio="1"
             class="grey lighten-2"
             max-width="175"
@@ -67,15 +67,48 @@
           </v-row>
         </v-form>
       </v-card>
+
     </v-flex>
   </v-layout>
+  <v-snackbar
+    color="green darken-1"
+    v-model="okSnackbar"
+    :timeout=2000
+  >
+  Successful
+    <v-btn
+      color="blue"
+      text
+      @click="okSnackbar = false"
+    >
+      Close
+    </v-btn>
+  </v-snackbar>
+  <v-snackbar
+    color="red accent-1"
+    v-model="ngSnackbar"
+    :timeout=2000
+  >
+  Failed
+    <v-btn
+      color="blue"
+      text
+      @click="ngSnackbar = false"
+    >
+      Close
+    </v-btn>
+  </v-snackbar>
+
 </v-container>
 </template>
 
 <script>
 export default {
   data: () => ({
+    okSnackbar: false,
+    ngSnackbar: false,
     url:"http://localhost:8000/generate-qr/btc",
+    qrcodeImage: "https://placehold.jp/175x175.png",
     address: "",
     addressRules: [
         v => !!v || 'Address is required',
@@ -97,19 +130,27 @@ export default {
   }),
   methods: {
      submit () {
+       /* eslint-disable no-console */
        if (!this.$refs.form.validate()) {
          return
        }
+
        let params = new FormData()
        params.append('address', this.address)
        params.append('amount', this.amount)
        params.append('label', this.label)
        params.append('message', this.message)
+
+       let self = this
        this.$axios.post(this.url, params)
          .then(function(res){
+             self.okSnackbar = true
+             self.qrcodeImage = 'data:image/jpeg;base64,' +  res["data"]["qr"]
              console.log(res)
          })
          .catch(function(res){
+             self.ngSnackbar = true
+             self.qrcodeImage = 'https://placehold.jp/175x175.png'
              console.log(res)
          })
      },

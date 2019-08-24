@@ -2,7 +2,7 @@
   <v-app>
     <AppBar/>
     <v-content>
-      <BtcForm/>
+      <router-view/>
     </v-content>
     <Footer/>
   </v-app>
@@ -10,14 +10,12 @@
 
 <script>
 import AppBar from './components/AppBar';
-import BtcForm from './components/BtcForm';
 import Footer from './components/Footer';
 
 export default {
   name: 'App',
   components: {
     AppBar,
-    BtcForm,
     Footer,
   },
   data: () => ({
