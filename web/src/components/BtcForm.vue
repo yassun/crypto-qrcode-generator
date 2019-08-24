@@ -27,7 +27,6 @@
 
         <v-form
             ref="form"
-            v-model="valid"
             lazy-validation
           >
 
@@ -40,28 +39,28 @@
 
           <v-text-field
             v-model="amount"
-            :rules="amountlRules"
-            label="Send amount"
-            required
+            :rules="amountRules"
+            label="Amount (optional)"
+            type="number"
           ></v-text-field>
 
           <v-text-field
-            v-model="label"
-            :rules="labelRules"
+            v-model="qrlabel"
+            :rules="qrlabelRules"
             label="Label (optional): Luke-Jr..."
           ></v-text-field>
 
           <v-textarea
-            name="input-7-1"
+            v-model="message"
+            :rules="messageRules"
             label="Message (optional): Donation for project..."
             value=""
-            height="60"
           ></v-textarea>
 
          <v-row align="center" justify="center">
           <v-btn
             color="success"
-            @click="validate"
+            @click="submit"
           >
             Generate QR Code
           </v-btn>
@@ -76,6 +75,44 @@
 <script>
 export default {
   data: () => ({
+    url:"http://localhost:8000/generate-qr/btc",
+    address: "",
+    addressRules: [
+        v => !!v || 'Address is required',
+        v => (v && v.length <= 100) || 'Address must be less than 100 characters',
+    ],
+    amount: "",
+    amountRules: [
+        v => (v.length <= 100) || 'Amount must be less than 100 characters',
+    ],
+    qrlabel: "",
+    qrlabelRules: [
+        v => (v.length <= 255) || 'Label must be less than 255 characters',
+    ],
+    message: "",
+    messageRules: [
+        v => (v.length <= 255) || 'Message must be less than 255 characters',
+    ],
+
   }),
+  methods: {
+     submit () {
+       if (!this.$refs.form.validate()) {
+         return
+       }
+       let params = new FormData()
+       params.append('address', this.address)
+       params.append('amount', this.amount)
+       params.append('label', this.label)
+       params.append('message', this.message)
+       this.$axios.post(this.url, params)
+         .then(function(res){
+             console.log(res)
+         })
+         .catch(function(res){
+             console.log(res)
+         })
+     },
+  }
 };
 </script>
