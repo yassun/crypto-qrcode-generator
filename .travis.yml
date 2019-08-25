@@ -1,5 +1,4 @@
 language: go
-sudo: false
 go:
   - 1.12
   - tip
@@ -11,20 +10,32 @@ matrix:
 env:
   GO111MODULE: on go mod download
   SERVER_SRC_DIR: "$TRAVIS_BUILD_DIR/server"
+  WEB_SRC_DIR: "$TRAVIS_BUILD_DIR/web"
+
+cache:
+  yarn: true
+
+before_install:
+  - cd $WEB_SRC_DIR
+  - nvm install $(jq -r '.engines.node' package.json)
+  # Install Yarn (https://yarnpkg.com/en/docs/install-ci#travis-tab)
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
 
 install:
   - go get -u golang.org/x/lint/golint
   - cd $SERVER_SRC_DIR
   - go mod download
-  - cd $TRAVIS_BUILD_DIR
+  - cd $WEB_SRC_DIR
+  - yarn install
 
 script:
   - cd $SERVER_SRC_DIR
   - go vet ./...
   - diff <(golint ./...) <(printf "")
   - go test ./...
-  - cd $TRAVIS_BUILD_DIR
+  - cd $WEB_SRC_DIR
+  - yarn lint
 
 after_script:
-
 
