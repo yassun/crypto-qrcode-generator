@@ -10,7 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'btc',
-      component: Bitcoin
+      component: Bitcoin,
     }
   ]
 })

@@ -16,6 +16,8 @@
 
         <v-row align="center" justify="center" class="pt-2">
           <v-btn
+            @click="downloadQRCode"
+            v-bind:disabled="isDownload"
             fab
             small
             right
@@ -60,7 +62,7 @@
          <v-row align="center" justify="center">
           <v-btn
             color="success"
-            @click="submit"
+            @click="generateQRCode"
           >
             Generate QR Code
           </v-btn>
@@ -103,12 +105,14 @@
 </template>
 
 <script>
+import SampleQrImage from "@/assets/sampleqr.png";
 export default {
   data: () => ({
+    title: 'Bitcoin',
+    isDownload: true,
     okSnackbar: false,
     ngSnackbar: false,
-    url:"http://localhost:8000/generate-qr/btc",
-    qrcodeImage: "https://placehold.jp/175x175.png",
+    qrcodeImage: SampleQrImage,
     address: "",
     addressRules: [
         v => !!v || 'Address is required',
@@ -129,31 +133,45 @@ export default {
 
   }),
   methods: {
-     submit () {
-       /* eslint-disable no-console */
-       if (!this.$refs.form.validate()) {
-         return
-       }
+    downloadQRCode () {
+      let url = this.qrcodeImage.replace(/^data:image\/[^;]+/,
+          'data:application/octet-stream')
+      window.open(url)
+    },
+    generateQRCode () {
+      if (!this.isValidForm()) {
+        return
+      }
+     this.reqBtcGenerate()
+    },
+    btcReqParams(){
+      let params = new FormData()
+      params.append('address', this.address)
+      params.append('amount', this.amount)
+      params.append('label', this.label)
+      params.append('message', this.message)
+      return params
+    },
+    isValidForm(){
+      return this.$refs.form.validate()
+    },
 
-       let params = new FormData()
-       params.append('address', this.address)
-       params.append('amount', this.amount)
-       params.append('label', this.label)
-       params.append('message', this.message)
+    reqBtcGenerate(){
+      let url = "http://localhost:8000/generate-qr/btc"
+      let self = this
+      this.$axios.post(url, this.btcReqParams())
+        .then(function(res){
+            self.okSnackbar = true
+            self.isDownload = false
+            self.qrcodeImage = 'data:image/jpeg;base64,' +  res["data"]["qr"]
+        })
+        .catch(function(res){
+            self.ngSnackbar = true
+            /* eslint-disable no-console */
+            console.log(res)
+        })
+    }
 
-       let self = this
-       this.$axios.post(this.url, params)
-         .then(function(res){
-             self.okSnackbar = true
-             self.qrcodeImage = 'data:image/jpeg;base64,' +  res["data"]["qr"]
-             console.log(res)
-         })
-         .catch(function(res){
-             self.ngSnackbar = true
-             self.qrcodeImage = 'https://placehold.jp/175x175.png'
-             console.log(res)
-         })
-     },
   }
 };
 </script>
