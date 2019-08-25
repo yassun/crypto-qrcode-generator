@@ -167,6 +167,7 @@ export default {
         })
         .catch(function(res){
             self.ngSnackbar = true
+            // eslint-disable-next-line
             console.log(res)
         })
     }
