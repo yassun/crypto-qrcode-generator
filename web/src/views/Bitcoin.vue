@@ -167,7 +167,6 @@ export default {
         })
         .catch(function(res){
             self.ngSnackbar = true
-            /* eslint-disable no-console */
             console.log(res)
         })
     }
