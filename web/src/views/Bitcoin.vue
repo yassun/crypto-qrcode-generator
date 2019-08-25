@@ -75,7 +75,7 @@
     v-model="okSnackbar"
     :timeout=2000
   >
-  Successful
+  <v-icon>mdi-check-circle</v-icon>QR code generation is complete.
     <v-btn
       color="blue"
       text
@@ -89,7 +89,7 @@
     v-model="ngSnackbar"
     :timeout=2000
   >
-  Failed
+  <v-icon>mdi-alert-circle</v-icon>QR code generation failed.
     <v-btn
       color="blue"
       text
