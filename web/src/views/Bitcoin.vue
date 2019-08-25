@@ -124,11 +124,11 @@ export default {
     ],
     qrlabel: "",
     qrlabelRules: [
-        v => (v.length <= 255) || 'Label must be less than 255 characters',
+        v => (v.length <= 100) || 'Label must be less than 100 characters',
     ],
     message: "",
     messageRules: [
-        v => (v.length <= 255) || 'Message must be less than 255 characters',
+        v => (v.length <= 100) || 'Message must be less than 100 characters',
     ],
 
   }),
