@@ -19,6 +19,10 @@ func TestGenerateBtcQR(t *testing.T) {
 
 	btcQrJSONTests := []btcQrJSONTest{
 		{
+			`{"address":"175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W"}`,
+			http.StatusOK,
+		},
+		{
 			`{"address":"175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W","amount":"0.1"}`,
 			http.StatusOK,
 		},

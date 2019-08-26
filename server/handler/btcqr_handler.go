@@ -12,7 +12,7 @@ import (
 
 type generateBtcQRParam struct {
 	Address string `json:"address" form:"address" query:"address" validate:"required,btcaddress"`
-	Amount  string `json:"amount" form:"amount" query:"amount" validate:"required,btcdecimallength"`
+	Amount  string `json:"amount" form:"amount" query:"amount" validate:"btcdecimallength"`
 	Label   string `json:"label" form:"label" query:"label" validate:"max=255"`
 	Message string `json:"message" form:"message" query:"message" validate:"max=255"`
 }
@@ -32,7 +32,7 @@ func GenerateBtcQR(c echo.Context) error {
 
 	a, err := strconv.ParseFloat(p.Amount, 64)
 	if err != nil {
-		return c.String(http.StatusBadRequest, "Validate is failed: "+err.Error())
+		a = 0
 	}
 
 	u := &bip21.URIResources{
