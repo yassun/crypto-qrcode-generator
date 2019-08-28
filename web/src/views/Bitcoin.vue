@@ -157,7 +157,7 @@ export default {
     },
 
     reqBtcGenerate(){
-      let url = "http://localhost:8000/generate-qr/btc"
+      let url = "http://"+ location.hostname + ":8000/generate-qr/btc"
       let self = this
       this.$axios.post(url, this.btcReqParams())
         .then(function(res){
