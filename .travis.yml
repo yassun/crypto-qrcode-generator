@@ -1,41 +1,52 @@
 language: go
 go:
   - 1.12
-  - tip
-
-matrix:
-  allow_failures:
-    - go: tip
 
 env:
-  GO111MODULE: on go mod download
-  SERVER_SRC_DIR: "$TRAVIS_BUILD_DIR/server"
-  WEB_SRC_DIR: "$TRAVIS_BUILD_DIR/web"
+  global:
+  - GO111MODULE=on go mod download
+  - SERVER_SRC_DIR=$TRAVIS_BUILD_DIR/server
+  - WEB_SRC_DIR=$TRAVIS_BUILD_DIR/web
+  # travis encrypt GCP_PROJECT_ID=xxx
+  - secure: "Wy6lWLgp0CxAJFsJvYBW7IASbS3F3QGEpsa4hIYzn2calxw/U3LsOFeWayY8uVtmEpFOojvgymqaUW3EEBj+P+mdzUm7L4OABZZZdJO106vG34hVzApBSpuJpOKORRP9WyAgkIq8AfL6hfhx+VHvFTXDMIBpyamJg6A/8Hm4IkjBvDjUhflKPztpY5EP6fGrDbBePWBu1QU+Vq+bIILqXWgHX0fOd+xb4rJT0xc53RYpCKNqXxysnW8lggJ5UiWHE5cQIk8VEO6fmUr92tJdf3FCdDRDCthhJ5qhdTMaVaQhCRTi8rlsbrS5Qx2EwJTt0og+Omwr4cUI3UDM5UcDpwMXXnnlIg8jJIFK4LTEXXWP+PPCibPkAZNeR+7iaTLaeREVhlUeHQZl60pR5N0z4Fel+LjRqDssOeHs6L8iXvAk6ujyh4pXyEMvgtEEqtCLgDbmrJcnFNsL8S8u/Pkb4cKIxkhqgstxZfO0aEdcGPG/uAY5wNrsNYay/Wn/3mUFbTJolnOohkXzoAJQIlznJv4pdO5NuGFj56sHXiql8tt9fR3Il9CzA47CcO8kupqvme7yTtr6GCOu1adVP3MosE7g0eEzI9xHiGmjCNaSAj+W1MIa585DltHjs/RhuTASZyU7HUqnxdTTCnoRz6Kl4RSkkJoiO7a94VrL0t0WJR0="
+  # travis encrypt GCP_REGION=xxx
+  - secure: "Ittua17rE3qwsqtd3QdKexUnB5xsW5JUwBtwEri5Uwag0KU0yG/CoXaDsc2zQZc2Q3n5+/ygxNyTSrZ1LqNK5Y1cnRd+UdqptpeUh6Kk1qBNAN6Z4cnNkdWCj7fy+dlUkbDzkDQxx8yAnTAKmv/gRd9DR95Fg7N6DLoWlv1NSfKvbpRAalti+dpyrnxknXy7EF0/DpSu6saIJz7bJuXcX8d9FpEjBfiig/WqTl18wBgONUT0RGVqi9+pFdLB/ZSEoqDSSYR567qKkOMKhEP5dhhm9PePStwh+3QzRRulX8g5crwMe8z7FyVEC3zNotlApJk9Lo5bkixqaT/jcfwhwcl1od8R6DnzRWDtEKfWAnO7iizYYmZqakK/Vz2SCuqCfA5gM4F6qO/fB61dUgxojohdMcPmb4y3fWcscI90EWbNIikPZ0TddAAaSMDPR5bn/bGUAkSU42vJVuecSEEAbuiL3+cXX0l+zVoZXFtwTMWxHX8z9NFa25QzlIQTLAGjfsL6rI7BlUiaIoleoB7kM2Ok7s5BDYl+rG+wcHVXCHu1DxBQuVNkdsnYaEVwR7p+eDlxhofU67GLHEWkPa3an4nGb3nx5FKLbV9P0mLDRAVCUqNM0ROeuui0cQfWsdhpQoZDG9ZyzKnzUJSy598BJKfT04SmuBxOgOdC9zUVMkA="
+  # travis encrypt GCP_ZONE=xxx
+  - secure: "scCWGqcqPIXzb7+1jc3KpJ/iBeMWW755JJ0bfx9wmbvTXEQct+PhTpiKsvvw6WMnShcoUP2tNqwTKe4rDib0SkSb+lMteSOOylESaAp1cPs06WdgAaUmpACRGbiRtmE7UEE5OQc5UprZSzlkQ6mvRmFcQbmUdc5T0KDhzKSJU7ladfjK33XKWIbwYgiMxhTPUy5kpPbY+d97IPSr87PDYSzzS1019bGpiNcF4czMyVztoFVkO5wCqm4T8B68iI4x1nxJjV+aC5w6PTRB+VnzypQ1BnUQ8EqGQmIlHaYnNytzgVB81DTQuk2nfwSrudUoFepnbTceWKbr6FX3tZu0//aI23ZYF1aVO1zLnnUNqCEJZg+Nw8MaS+xC2nDzMOW56lYsOm9WK1XvRf+4uhm5sJaKmcxhP7ucvOtLy/V0q3QpojdH4aCiVGCKQ+0LaBVtx92BsgJyassGbTj6P9uCIG6G8N0r8xbXz6Y0Kmlp4Dzxj7uu4sXrLq3X336g4O4uiyDl8l/z1DdpHVaNb1mR7uAyaVY5avFY8Slah0WJ7fd0s666k7QlFwsxr6Ur2XqVkAM9TfbPzNPPui+0U8K/7Cfeu7qxmbNqW4gGKyFY3gB0uT22B+4pzVcB9flVGpV7DbwxS9unINtzV3ZIMEFpVGqqLXpBk+B5qiBmMeeO0sk="
+  # travis encrypt GCP_SDK_SECRET=xxx
+  - secure: "RcUkGMNyGeHkZ5bqVasy2L+7XiDM7kvvkz/HafZc3CeOcVtvCKkfalSswUDYpMsACQJosGA2+ouMz8dON3gLh10ItORoCGRr0WIW2vyGByNEMJVMf6pZQXDStiGOOtRJ0Fsf6dl1/ocOuvYA6DFdDIZRRNwliiIxa3CuATwvVGnh2XG/Q3fXJjAgL+thHExg5LLvdDyJVjr3kWp1uda1SQqZBQHvN4AmttMy4YhKmgDtVSezNa8QxWND52jpOdGH1a+D4cWV7mcGD/Nh9gvhfQUMWo7XayNI/uXMAbA+tOdW3KCz3dUWyxvFW1jOYZ3UmHKYRsf9gObV+U4ekGxkNv6+/wyOOhizzvhTbdtmYXqV2tPay0X4YUJwhnpjoUWstoxvChQQc00z4VSL2uqq4mUdtV7DxTAeD6cQHc8U8NQg+bkT8STf6uKrUWXICaSZ7eID0yv+j7KcSSAcDm5bmNfeNXRRRIVYLMuyknHSZ9ti40jeB6rnEynr/pgFkmOZv6IVK2gTQCSmZPRZIV8YIFKS7399ievWnsmDYr9Cxy51TGxZYngnbAFXAw3F056kaeA0JChxh4pVB81H+I2sShfjxwpRqiz40++LguGoX6oUQemutvzEKeqTs3U75gdnzQWkwnEl++U+vRSD6Ru6w1GF7aVigCqCeU5+np6ZdRE="
 
 cache:
   yarn: true
 
 before_install:
+  # insatll nodejs
   - cd $WEB_SRC_DIR
   - nvm install $(jq -r '.engines.node' package.json)
-  # Install Yarn (https://yarnpkg.com/en/docs/install-ci#travis-tab)
+  - cd $TRAVIS_BUILD_DIR
+
+  # install Yarn (https://yarnpkg.com/en/docs/install-ci#travis-tab)
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
 
 install:
-  - go get -u golang.org/x/lint/golint
-  - cd $SERVER_SRC_DIR
-  - go mod download
-  - cd $WEB_SRC_DIR
-  - yarn install
+  - ./script/ci-install-web.sh
+  - ./script/ci-install-api.sh
+  - ./script/ci-install-gcp.sh
 
 script:
-  - cd $SERVER_SRC_DIR
-  - go vet ./...
-  - diff <(golint ./...) <(printf "")
-  - go test ./...
-  - cd $WEB_SRC_DIR
-  - yarn lint
+  - ./script/ci-test-web.sh
+  - ./script/ci-test-api.sh
 
-after_script:
+  - ./script/ci-build-web.sh
+  - ./script/ci-build-api.sh
 
+  - ./script/ci-push-web.sh
+  - ./script/ci-push-api.sh
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: "./script/ci-deploy.sh"
+  on:
+    all_branches: true
