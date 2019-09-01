@@ -11,3 +11,6 @@ http://crypto-qr-generator.site/
 - Hosted on Kubernetes(GKE). 
 - The URI based on the BIP-21 standard(only BTC).
 
+# Configuration
+
+![Crypto Qrcode Generator Architecture](https://user-images.githubusercontent.com/2255617/64079033-5c6e7800-cd1d-11e9-84d8-fbd264d600ac.png)
