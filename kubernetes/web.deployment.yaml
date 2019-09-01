@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: $GCP_REGION/$GCP_PROJECT_ID/crypto-qrcode-generator-web:latest
+        ports:
+        - containerPort: 80

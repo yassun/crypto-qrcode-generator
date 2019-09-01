@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: $GCP_REGION/$GCP_PROJECT_ID/crypto-qrcode-generator-server:latest
+        readinessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        ports:
+        - containerPort: 8000

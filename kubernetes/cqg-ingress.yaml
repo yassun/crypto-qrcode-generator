@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cqg-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "crypto-qrcode-generator-ip"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/*
+        backend:
+          serviceName: api-svc
+          servicePort: 8000
+      - path: /*
+        backend:
+          serviceName: web-svc
+          servicePort: 80
