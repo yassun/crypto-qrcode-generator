@@ -16,3 +16,9 @@ Sample Address : 3HXM3iSGWzuXwHYzyquhmtMn2A5uXdLgQh
 # Configuration
 
 ![Crypto Qrcode Generator Architecture](https://user-images.githubusercontent.com/2255617/64079033-5c6e7800-cd1d-11e9-84d8-fbd264d600ac.png)
+
+- Backend API: Golang/Echo
+- Frontend: Vue.js/Vuetiff
+- Production Environment: Kubernetes(GKE)
+- Development Environment: docker-compose
+- CI/CD: TravisCI
