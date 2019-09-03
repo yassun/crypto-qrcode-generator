@@ -15,6 +15,8 @@ Sample Address : 3HXM3iSGWzuXwHYzyquhmtMn2A5uXdLgQh
 
 # Configuration
 
+http://yasun.hatenablog.jp/entry/2019/09/03/145514
+
 ![Crypto Qrcode Generator Architecture](https://user-images.githubusercontent.com/2255617/64079033-5c6e7800-cd1d-11e9-84d8-fbd264d600ac.png)
 
 - Backend API: Golang/Echo
