@@ -2,13 +2,17 @@ version: '3'
 
 services:
   server:
-    build: ./server
+    build:
+        context: ./server
+        dockerfile: Dockerfile.dev
     volumes:
       - ./server:/api
     ports:
       - 8000:8000
   web:
-    build: ./web
+    build:
+        context: ./web
+        dockerfile: Dockerfile.dev
     volumes:
       - ./web:/app
     ports:

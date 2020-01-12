@@ -1,14 +1,16 @@
-FROM golang:1.12.7-alpine3.9
+FROM golang:1.12.7 as builder
 
-WORKDIR /api
-
+WORKDIR /go/src/app
 ENV GO111MODULE=on
 
-RUN apk add --no-cache \
-        alpine-sdk \
-        git \
-    && go get github.com/pilu/fresh
+COPY go.mod go.sum ./
+RUN go mod download
 
-EXPOSE 8000
+COPY . .
 
-CMD ["fresh"]
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/app
+
+FROM alpine
+COPY --from=builder /go/bin/app /go/bin/app
+
+CMD /go/bin/app $PORT
