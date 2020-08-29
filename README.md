@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/yassun/crypto-qrcode-generator.png?branch=master)](http://travis-ci.org/yassun/crypto-qrcode-generator)
 
-http://crypto-qr-generator.site/
+https://crypto-qrcode-generator-web.firebaseapp.com/
 
 Sample Address : 3HXM3iSGWzuXwHYzyquhmtMn2A5uXdLgQh
 
