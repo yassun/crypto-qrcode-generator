@@ -13,7 +13,8 @@ require (
 	github.com/leodido/go-urn v1.1.0 // indirect
 	github.com/stretchr/testify v1.3.0
 	github.com/yassun/go-bip21 v0.0.0-20190810063543-57f0e52b5ce3
-	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
+	golang.org/x/crypto v0.1.0 // indirect
+	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v9 v9.29.1
 	rsc.io/qr v0.2.0
 )
